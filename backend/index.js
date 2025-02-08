@@ -1,7 +1,7 @@
 import express from 'express';
 import authRoutes from './routes/authRoutes.js';
-import songRoutes from './routes/songRoutes.js';
-import promptRoutes from './routes/promptRoutes.js';
+// import songRoutes from './routes/songRoutes.js';
+// import promptRoutes from './routes/promptRoutes.js';
 import cors from 'cors';            // if not installed, do `npm i cors`
 import session from 'express-session';
 import dotenv from 'dotenv';        // if not installed, do `npm i dotenv`
@@ -56,9 +56,9 @@ app.use(
 
 // Routes
 app.use('/api', authRoutes);
-app.use('/api', promptRoutes);
+// app.use('/api', promptRoutes);
 // ... etc
-app.use('/api', songRoutes);
+// app.use('/api', songRoutes);
 app.listen(3000, () => {
     console.log("Server running on port 3000")
 })
