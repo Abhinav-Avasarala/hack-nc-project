@@ -1,11 +1,8 @@
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { GalleryVerticalEnd } from "lucide-react"
-import { LoginForm } from "@/components/login-form"
-
+import { LoginForm } from "@/components/login-form";
+import { GalleryVerticalEnd } from "lucide-react";
 
 export default function Home() {
-  return (
+  return ( 
     <div className="grid min-h-svh lg:grid-cols-2">
     <div className="flex flex-col gap-4 p-6 md:p-10">
       <div className="flex justify-center gap-2 md:justify-start">
@@ -22,11 +19,11 @@ export default function Home() {
         </div>
       </div>
     </div>
-    <div className="relative hidden bg-muted lg:block">
+    <div className="relative items-center hidden bg-[#e7e9ec] lg:block">
       <img
-        src="/placeholder.svg"
+        src="/Opportunify.png"
         alt="Image"
-        className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+        className="absolute inset-0 h-250 w-full object-cover bg-[#e7e9ec] top[-60px]"
       />
     </div>
   </div>
