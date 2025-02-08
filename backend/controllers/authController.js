@@ -32,63 +32,66 @@ app.use(express.json());
 
 
 export const login = async (req, res) => {
-  const { username, password } = req.body;
-
-  if (!username || !password) {
-    return res
-      .status(400)
-      .json({ message: 'Username and password are required.' });
-  }
-
-  try {
-    const result = await dbClient.query(
-      'SELECT * FROM users WHERE username = $1',
-      [username]
-    );
-    const user = result.rows[0];
-
-    // Check user and verify password with Argon2
-    if (user && (await argon2.verify(user.passwordhash, password))) {
-      console.log('User logged in:', user.username);
-      req.session.userId = user.userid;
-      res.status(200).json({ message: 'Logged in successfully.' });
-    } else {
-      res.status(401).json({ message: 'Invalid username or password.' });
+    const { email, password } = req.body;
+  
+    // Validate input
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required.' });
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error.' });
-  }
-};
+  
+    try {
+      // Fetch user by email
+      const result = await dbClient.query(
+        'SELECT * FROM Users WHERE Email = $1',
+        [email]
+      );
+      const user = result.rows[0];
+  
+      // Check if user exists and verify password using Argon2
+      if (user && (await argon2.verify(user.pw_hash, password))) {
+        console.log('User logged in:', user.username);
+        req.session.userId = user.id; // Store user ID in session
+        res.status(200).json({ message: 'Logged in successfully.' });
+      } else {
+        res.status(401).json({ message: 'Invalid email or password.' });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error.' });
+    }
+  };
+
 
 export const register = async (req, res) => {
-  const { displayName, username, password } = req.body;
-  if (!username || !password) {
-    return res
-      .status(400)
-      .json({ message: 'Username and password are required.' });
+  const { name, username, email, password } = req.body;
+
+  // Validate input
+  if (!username || !name || !email || !password) {
+    return res.status(400).json({ message: 'All fields are required.' });
   }
 
   try {
     // Hash password using Argon2
     const hashedPassword = await argon2.hash(password);
 
+    // Insert user into the database
     await dbClient.query(
-      'INSERT INTO users (displayname, username, passwordhash) VALUES ($1, $2, $3)',
-      [displayName, username, hashedPassword]
+      'INSERT INTO Users (Username, Name, Email, Pw_hash) VALUES ($1, $2, $3, $4)',
+      [username, name, email, hashedPassword]
     );
 
     res.status(201).json({ message: 'User registered successfully.' });
   } catch (error) {
-    // Handle unique constraint error (duplicate username)
+    // Handle unique constraint errors
     if (error.code === '23505') {
-      res.status(409).json({ message: 'Username already exists.' });
+      res.status(409).json({ message: 'Username or Email already exists.' });
     } else {
       console.error(error);
       res.status(500).json({ message: 'Internal server error.' });
     }
   }
 };
+
 
 export const profile = async (req, res) => {
     if (req.session.userId) {
