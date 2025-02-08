@@ -1,34 +1,35 @@
-import pkg from 'pg';
-import express from 'express';
+// import pkg from 'pg';
+// import express from 'express';
 import argon2 from 'argon2';
-import session from 'express-session';
-import env from 'dotenv';
-import connectPgSimple from 'connect-pg-simple';
+import dbClient from '../middleware/dbConfig.js';
+// import session from 'express-session';
+// import env from 'dotenv';
+// import connectPgSimple from 'connect-pg-simple';
 
-env.config();
+// env.config();
 
-const { Client } = pkg;
-const pgSession = connectPgSimple(session);
-
-
-const app = express();
-
-const dbClient = new Client({
-    user: 'postgres',
-    host: 'localhost',
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-}); 
-
-dbClient
-  .connect()
-  .then(() => console.log('Database connected'))
-  .catch((err) => console.error('Connection error', err.stack));
+// const { Client } = pkg;
+// // const pgSession = connectPgSimple(session);
 
 
-// Middleware
-app.use(express.json());
+// // const app = express();
+
+// const dbClient = new Client({
+//     user: 'postgres',
+//     host: 'localhost',
+//     database: process.env.DB_NAME,
+//     password: process.env.DB_PASSWORD,
+//     port: process.env.DB_PORT,
+// }); 
+
+// dbClient
+//   .connect()
+//   .then(() => console.log('Database connected'))
+//   .catch((err) => console.error('Connection error', err.stack));
+
+
+// // Middleware
+// app.use(express.json());
 
 
 export const login = async (req, res) => {
