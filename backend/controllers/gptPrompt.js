@@ -12,7 +12,7 @@ export const getResponse = async (req, res) => {
     
     try {
         // Extract the user's input from the request body
-        const { userInput } = req.query.userInput;
+        const { userInput } = req.query;
         
         console.log("input:" + userInput);
         // Make a request to the OpenAI API
@@ -31,7 +31,9 @@ export const getResponse = async (req, res) => {
         // Parse the response
         const parsedResponse = response.choices[0].message.content;
         const arrayOfTags = parsedResponse.split(",");
-    
+        for (let i = 0; i < arrayOfTags.length; i++) {
+            arrayOfTags[i] = arrayOfTags[i].trim();
+        }
         // Return the array of tags as a JSON response
         return res.status(200).json({ tags: arrayOfTags });
       } catch (error) {

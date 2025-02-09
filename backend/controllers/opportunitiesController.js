@@ -1,5 +1,24 @@
 import dbClient from '../middleware/dbConfig.js';
 
+
+export const getAllEvents = async (res)=> {
+    try {
+        const result = await dbClient.query(
+            'SELECT * FROM opportunities'
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'No opportunities found for this location.' });
+        } else {
+            res.json(result.rows);
+        }
+
+    } catch(err) {
+        console.error('Database query error:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+
+}
+
 export const getByLocation = async (req, res) => {
   const { location } = req.body; // Ensure the frontend sends `location` in the body
   try {

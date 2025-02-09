@@ -1,5 +1,5 @@
 "use client";
-
+import axios from 'axios';
 import React, { useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
@@ -150,10 +150,42 @@ const projects = [
     icon: Map,
   },
 ];
+//const response = await axios.get('http://localhost:3000/api/getAllEvents');
 
+const [selectedValue, setSelectedValue] = useState("");
+const response = {};
+async function searchEvents(query) {
+  response = await axios.get(
+    'http://localhost:3000/api/getBySearch',{
+    params: {searchTerm : query}
+})
+  
+}
+
+/*
+async function filterEvents(option) {
+  if(option.equals("date")) {
+    const response = await axios.get(
+      'http://localhost:3000/api/getFromDate',
+      {}
+      
+    );
+    
+
+  } else if(option.equals("organization")) {
+
+
+  } else {
+
+  }
+}
+  */
 function ProjectCard({ project }) {
   const [expanded, setExpanded] = useState(false);
 
+  
+
+  
   return (
     <div
       onClick={() => setExpanded(!expanded)}
@@ -229,7 +261,7 @@ export default function Events() {
               placeholder="Search events..."
               className="flex-1 rounded-md border border-muted/50 bg-muted px-4 py-2 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             />
-            <Select>
+            <Select  onValueChange={(value) => setSelectedValue(value)}>
               <SelectTrigger className="w-[180px] bg-muted rounded-md border border-muted/50 px-4 py-2">
                 <SelectValue placeholder="Filter" />
               </SelectTrigger>
@@ -239,8 +271,8 @@ export default function Events() {
                 <SelectItem value="location">Location</SelectItem>
               </SelectContent>
             </Select>
-            <button className="flex items-center rounded-md bg-primary px-4 py-2 text-white hover:bg-primary/90">
-              <Search className="mr-2" size={16} />
+            <button onClick = { searchEvents({selectedValue})} className="flex items-center rounded-md bg-primary px-4 py-2 text-white hover:bg-primary/90">
+              <Search  className="mr-2" size={16} />
               Search
             </button>
           </div>

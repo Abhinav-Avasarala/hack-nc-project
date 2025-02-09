@@ -39,12 +39,12 @@ const signup = () => {
     const handleSignUpUser = async (e) => {
         e.preventDefault();
         try {
-          const response = await axios.post(
-            'http://localhost:3000/api/register',
-            { name, username, email, password, major, career_goal }
-          );
+        //   const response = await axios.post(
+        //     'http://localhost:3000/api/register',
+        //     { name, username, email, password, major, career_goal }
+        //   );
           
-          if(response.status == 201) {
+        //   if(response.status == 201) {
 
             const listy = await axios.get('http://localhost:3000/api/getResponse', {
                 params: { userInput: career_goal }
@@ -60,9 +60,9 @@ const signup = () => {
             //   }
 
             router.push("/dashboard");
-          } else {
-            console.log("Error on api request for signup: " + response.status);
-          }
+        //   } else {
+        //     console.log("Error on api request for signup: " + response.status);
+        //   }
         } catch (err){
           console.log("Error on signup:" + err);
         }
