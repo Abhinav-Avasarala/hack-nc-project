@@ -21,8 +21,8 @@ export const getResponse = async (req, res) => {
           messages: [
             {
               role: "user",
-              content: `Given the input, give me as many keywords that would best fit the user's interests as one string separated by commas with no spaces. Generate as many key words as possible (max of 15).
-              For example, if a student types "I am Computer Science major, interested in AI & ML, I want to get into AI research and LLM research.", the output should be something like "Computer Science, AI & ML, AI research, LLM research, Programming, Coding, AI conferences".
+              content: `Given the input, give me as many keywords that would best fit the user's interests as one string separated by commas with no spaces. Generate as many key words as possible (max of 15) and do not use abbreviations.
+              For example, if a student types "I am Computer Science major, interested in AI & ML, I want to get into AI research and LLM research.", the output should be something like "Computer Science, Artificial intelligence & Machine learning, Artificial intelligence research, Programming, Hackathons, Competitive Programming, Artificial Intelligence conferences".
               The input is: ${userInput}`   
             }
           ],

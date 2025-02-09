@@ -1,7 +1,23 @@
 import dbClient from '../middleware/dbConfig.js';
 
+export const getAllOrgs = async (req, res) => {
+    try {
+        const result = await dbClient.query(
+            'SELECT * FROM organizations'
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'No organizations found.' });
+        } else {
+            res.json(result.rows);
+        }
 
-export const getAllEvents = async (res)=> {
+    } catch(err) {
+        console.error('Database query error:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+
+}
+export const getAllEvents = async (req, res)=> {
     try {
         const result = await dbClient.query(
             'SELECT * FROM opportunities'
@@ -20,10 +36,10 @@ export const getAllEvents = async (res)=> {
 }
 
 export const getByLocation = async (req, res) => {
-  const { location } = req.body; // Ensure the frontend sends `location` in the body
+  const { location } = req.query; // Ensure the frontend sends `location` in the body
   try {
     const result = await dbClient.query(
-      'SELECT * FROM opportunities WHERE location = $1', // Use parameterized queries
+      'SELECT * FROM opportunities WHERE location ILIKE $1', // Use parameterized queries
       [location]
     );
 
@@ -39,35 +55,35 @@ export const getByLocation = async (req, res) => {
 };
 
 
-export const getFromDate = async(req, res) => {
-    const { startDate, endDate } = req.body;
+// export const getFromDate = async(req, res) => {
+//     const { startDate, endDate } = req.body;
 
-    try {
-        const result = await dbClient.query(
-            "SELECT * FROM opportunities WHERE start_date <= $2 AND end_date >= $1", 
-            [startDate, endDate]
-        );
+//     try {
+//         const result = await dbClient.query(
+//             "SELECT * FROM opportunities WHERE start_date <= $2 AND end_date >= $1", 
+//             [startDate, endDate]
+//         );
 
-        if (result.rows.length === 0) {
-            return res.status(404).json({ message: 'No opportunities found within the specified date range.' });
-        } else {
-            res.json(result.rows);
-        }
-    } catch (err) {
-        console.error('Database query error:', err);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-}
+//         if (result.rows.length === 0) {
+//             return res.status(404).json({ message: 'No opportunities found within the specified date range.' });
+//         } else {
+//             res.json(result.rows);
+//         }
+//     } catch (err) {
+//         console.error('Database query error:', err);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// }
 
 
 export const getByOrganizationName = async(req, res) => {
-    const { org } = req.body;
+    const { org } = req.query;
 
     const result = await dbClient.query(
         "SELECT o.Id, o.Type, o.Title, o.Location, o.Start_date, o.End_date, o.Deadline " +
         "FROM Opportunities o " +
         "JOIN Organizations org ON o.Org_id = org.Id " +
-        "WHERE org.Name = $1", [org]
+        "WHERE org.Name ILIKE $1", [org]
     );
 
     if (result.rows.length === 0) {
@@ -78,8 +94,8 @@ export const getByOrganizationName = async(req, res) => {
 }
 
 export const getBySearch = async(req, res) => {
-    const {searchTerm} = req.body;
-
+    const {searchTerm} = req.query;
+    console.log(searchTerm);
     const result = await dbClient.query(
       'SELECT * FROM opportunities WHERE description ILIKE $1',
       ['%' + searchTerm + '%'] // string concatenation

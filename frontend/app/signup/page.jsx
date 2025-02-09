@@ -39,12 +39,12 @@ const signup = () => {
     const handleSignUpUser = async (e) => {
         e.preventDefault();
         try {
-        //   const response = await axios.post(
-        //     'http://localhost:3000/api/register',
-        //     { name, username, email, password, major, career_goal }
-        //   );
+          const response = await axios.post(
+            'http://localhost:3000/api/register',
+            { name, username, email, password, major, career_goal }
+          );
           
-        //   if(response.status == 201) {
+          if(response.status == 201) {
 
             const listy = await axios.get('http://localhost:3000/api/getResponse', {
                 params: { userInput: career_goal }
@@ -52,17 +52,15 @@ const signup = () => {
 
             console.log(listy.data.tags);
 
-            // for (const item of listy.data.tags) {
-            //     await axios.post('http://localhost:3000/api/linkUserWithInterest', {
-            //       user_name: username,
-            //       interest_name: item
-            //     });
-            //   }
+            for (const item of listy.data.tags) {
+                await axios.post('http://localhost:3000/api/linkUserWithInterest', {
+                  user_name: username, 
+                  interest_name: item
+                });
+              }
 
             router.push("/dashboard");
-        //   } else {
-        //     console.log("Error on api request for signup: " + response.status);
-        //   }
+          }
         } catch (err){
           console.log("Error on signup:" + err);
         }
@@ -111,15 +109,15 @@ const signup = () => {
                     <Input id="username" defaultValue="" onChange = {(e) => setCareerGoal(e.target.value)}/>
                 </div>
 
-                <div className="space-y-1">
+                {/* <div className="space-y-1">
                     <InterestSelector />
-                </div>
+                </div> */}
 
 
                 </CardContent>
                 <CardFooter>
                 <Button onClick={ handleSignUpUser }> 
-                    Save changes
+                    Register
                 </Button>
                 </CardFooter>
             </Card>

@@ -1,6 +1,6 @@
 "use client";
-
-import React, { useState } from "react";
+import axios from 'axios';
+import React, { useEffect, useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
@@ -24,110 +24,98 @@ import {
 const projects = [
   {
     name: "todo",
-    title: "dashboard",
-    location: "todo",
-    start_date: "todo",
-    end_date: "todo",
-    deadline: "todo",
+    website: "dashboard",
+    email: "todo",
+    description: "todo",
+    type: "todo",
     icon: Map,
   },
   {
     name: "todo",
-    title: "dashboard",
-    location: "todo",
-    start_date: "todo",
-    end_date: "todo",
-    deadline: "todo",
+    website: "dashboard",
+    email: "todo",
+    description: "todo",
+    type: "todo",
     icon: Map,
   },
   {
     name: "todo",
-    title: "dashboard",
-    location: "todo",
-    start_date: "todo",
-    end_date: "todo",
-    deadline: "todo",
+    website: "dashboard",
+    email: "todo",
+    description: "todo",
+    type: "todo",
     icon: Map,
   },
   {
     name: "todo",
-    title: "dashboard",
-    location: "todo",
-    start_date: "todo",
-    end_date: "todo",
-    deadline: "todo",
+    website: "dashboard",
+    email: "todo",
+    description: "todo",
+    type: "todo",
+    icon: Map,
+  },
+  {
+    nname: "todo",
+    website: "dashboard",
+    email: "todo",
+    description: "todo",
+    type: "todo",
     icon: Map,
   },
   {
     name: "todo",
-    title: "dashboard",
-    location: "todo",
-    start_date: "todo",
-    end_date: "todo",
-    deadline: "todo",
+    website: "dashboard",
+    email: "todo",
+    description: "todo",
+    type: "todo",
     icon: Map,
   },
   {
     name: "todo",
-    title: "dashboard",
-    location: "todo",
-    start_date: "todo",
-    end_date: "todo",
-    deadline: "todo",
+    website: "dashboard",
+    email: "todo",
+    description: "todo",
+    type: "todo",
     icon: Map,
   },
   {
     name: "todo",
-    title: "dashboard",
-    location: "todo",
-    start_date: "todo",
-    end_date: "todo",
-    deadline: "todo",
+    website: "dashboard",
+    email: "todo",
+    description: "todo",
+    type: "todo",
     icon: Map,
   },
   {
     name: "todo",
-    title: "dashboard",
-    location: "todo",
-    start_date: "todo",
-    end_date: "todo",
-    deadline: "todo",
+    website: "dashboard",
+    email: "todo",
+    description: "todo",
+    type: "todo",
     icon: Map,
   },
   {
     name: "todo",
-    title: "dashboard",
-    location: "todo",
-    start_date: "todo",
-    end_date: "todo",
-    deadline: "todo",
+    website: "dashboard",
+    email: "todo",
+    description: "todo",
+    type: "todo",
     icon: Map,
   },
   {
     name: "todo",
-    title: "dashboard",
-    location: "todo",
-    start_date: "todo",
-    end_date: "todo",
-    deadline: "todo",
+    website: "dashboard",
+    email: "todo",
+    description: "todo",
+    type: "todo",
     icon: Map,
   },
   {
     name: "todo",
-    title: "dashboard",
-    location: "todo",
-    start_date: "todo",
-    end_date: "todo",
-    deadline: "todo",
-    icon: Map,
-  },
-  {
-    name: "todo",
-    title: "dashboard",
-    location: "todo",
-    start_date: "todo",
-    end_date: "todo",
-    deadline: "todo",
+    website: "dashboard",
+    email: "todo",
+    description: "todo",
+    type: "todo",
     icon: Map,
   },
 ];
@@ -140,32 +128,30 @@ function ProjectCard({ project }) {
       onClick={() => setExpanded(!expanded)}
       className="rounded-xl overflow-hidden bg-muted/50 cursor-pointer transition-all duration-300"
     >
+      <p className="text-base" style={{textAlign: "center"}} >
+              <strong> {project.name} </strong>
+      </p>
       {/* Dummy Image (increased height for a larger card) */}
       <img
-        src="https://via.placeholder.com/300x200"
+        src={project.image_url}
         alt="Project placeholder"
         className="w-full h-48 object-cover"
+        style={{ width: "150px", height: "150px" , marginLeft: "auto", marginRight: "auto", marginTop: "25px" }}
       />
 
       {/* Project Info */}
       <div className="p-6">
-        <h2 className="text-2xl font-semibold text-gray-900">{project.name}</h2>
         {expanded && (
           <div className="mt-3 space-y-2 text-gray-700">
+            
             <p className="text-base">
-              <strong>Title:</strong> {project.title}
+              <strong>Website:</strong> {project.website}
             </p>
             <p className="text-base">
-              <strong>Location:</strong> {project.location}
+              <strong>Email:</strong> {project.email}
             </p>
             <p className="text-base">
-              <strong>Start Date:</strong> {project.start_date}
-            </p>
-            <p className="text-base">
-              <strong>End Date:</strong> {project.end_date}
-            </p>
-            <p className="text-base">
-              <strong>Deadline:</strong> {project.deadline}
+              <strong>Description:</strong> {project.description}
             </p>
           </div>
         )}
@@ -175,6 +161,34 @@ function ProjectCard({ project }) {
 }
 
 export default function Organizations() {
+
+  const [opportunities, setOpportunities] = useState([]);
+  const [query, setSearchQuery] = useState(""); 
+  // Function to fetch data (default or search case)
+  const fetchOpportunities = async (query) => {
+    console.log("ran feth");
+    if(query == "") {
+      const response = await axios.get("http://localhost:3000/api/getAllOrgs");
+      setOpportunities(response.data); 
+      console.log("initial response: ", response.data);
+    } else {
+      try{
+          const response = await axios.get("http://localhost:3000/api/getByOrg", {
+            params: { org: query },
+          });
+          setOpportunities(response.data);
+       
+        
+      } catch (error) {
+        console.log("No organizations found for this search.");
+        setOpportunities([]);
+      }
+    }
+  }
+  useEffect(() => {
+    fetchOpportunities(""); // Load default opportunities
+  }, []);
+    
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -207,8 +221,10 @@ export default function Organizations() {
               type="text"
               placeholder="Search organizations..."
               className="flex-1 rounded-md border border-muted/50 bg-muted px-4 py-2 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+              value={query}
+              onChange ={(e) => setSearchQuery(e.target.value)}
             />
-            <button className="flex items-center rounded-md bg-primary px-4 py-2 text-white hover:bg-primary/90">
+            <button onClick = {() => fetchOpportunities(query) } className="flex items-center rounded-md bg-primary px-4 py-2 text-white hover:bg-primary/90">
               <Search className="mr-2" size={16} />
               Search
             </button>
@@ -216,8 +232,8 @@ export default function Organizations() {
 
           {/* Grid container */}
           <div className="grid auto-rows-min gap-6 md:grid-cols-3">
-            {projects.map((project, index) => (
-              <ProjectCard key={index} project={project} />
+            {opportunities.map((opportunity, index) => (
+              <ProjectCard key={index} project={opportunity} />
             ))}
           </div>
 
