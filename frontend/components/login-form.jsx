@@ -1,5 +1,6 @@
 'use client'
-
+import { useState } from "react";
+import axios from 'axios';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,11 +9,38 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 
 
+
+
+
 export function LoginForm({
   className,
   ...props
 }) {
-  const router = useRouter()
+  const router = useRouter();
+
+
+  const [username, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/api/login',
+        { username, password },
+        { withCredentials: true } 
+      );
+      
+      if(response.status == 200) {
+        router.push("/dashboard");
+      }
+    } catch (err){
+      console.log("Error:" + err);
+    }
+    
+  }
+
+
   return (
     (<form className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
@@ -24,7 +52,7 @@ export function LoginForm({
       <div className="grid gap-6">
         <div className="grid gap-2">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="m@example.com" required />
+          <Input id="email" type="email" placeholder="m@example.com" required onChange = {(e) => setEmail(e.target.value)}/>
         </div>
         <div className="grid gap-2">
           <div className="flex items-center">
@@ -33,9 +61,9 @@ export function LoginForm({
               Forgot your password?
             </a>
           </div>
-          <Input id="password" type="password" required />
+          <Input id="password" type="password" required onChange = {(e) => setPassword(e.target.value)}/>
         </div>
-        <Button onClick={() => router.push('/dashboard')} type="submit" className="w-full">
+        <Button onClick={ handleLogin } type="submit" className="w-full">
           Login
         </Button>
       </div>
