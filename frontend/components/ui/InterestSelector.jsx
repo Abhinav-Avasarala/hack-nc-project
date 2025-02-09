@@ -20,6 +20,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 
 const defaultInterests = [
+  // STEM & Technology
   { value: "computer_science", label: "Computer Science" },
   { value: "machine_learning", label: "Machine Learning" },
   { value: "data_science", label: "Data Science" },
@@ -30,6 +31,37 @@ const defaultInterests = [
   { value: "blockchain", label: "Blockchain" },
   { value: "iot", label: "Internet of Things" },
   { value: "game_development", label: "Game Development" },
+  { value: "mathematics", label: "Mathematics" },
+  { value: "physics", label: "Physics" },
+  { value: "chemistry", label: "Chemistry" },
+  { value: "biology", label: "Biology" },
+  { value: "astronomy", label: "Astronomy" },
+
+  // Business & Social Sciences
+  { value: "economics", label: "Economics" },
+  { value: "business", label: "Business" },
+  { value: "finance", label: "Finance" },
+  { value: "marketing", label: "Marketing" },
+  { value: "psychology", label: "Psychology" },
+  { value: "sociology", label: "Sociology" },
+  { value: "history", label: "History" },
+  { value: "literature", label: "Literature" },
+  { value: "philosophy", label: "Philosophy" },
+
+  // Arts & Humanities
+  { value: "art_design", label: "Art & Design" },
+  { value: "music", label: "Music" },
+  { value: "creative_writing", label: "Creative Writing" },
+  { value: "languages", label: "Languages" },
+
+  // Extracurriculars & Clubs
+  { value: "sports", label: "Sports" },
+  { value: "debate", label: "Debate" },
+  { value: "community_service", label: "Community Service" },
+  { value: "environmental_club", label: "Environmental Club" },
+  { value: "theater", label: "Theater" },
+  { value: "dance", label: "Dance" },
+  { value: "photography", label: "Photography" },
 ];
 
 export function InterestSelector({ interests = defaultInterests, onChange }) {
@@ -65,7 +97,10 @@ export function InterestSelector({ interests = defaultInterests, onChange }) {
           </PopoverTrigger>
           <PopoverContent className="w-full md:w-[280px] p-0">
             <Command>
-              <CommandInput placeholder="Search interest..." className="text-sm" />
+              <CommandInput
+                placeholder="Search interest..."
+                className="text-sm"
+              />
               <CommandList>
                 <CommandEmpty>No interest found.</CommandEmpty>
                 <CommandGroup>
@@ -98,7 +133,7 @@ export function InterestSelector({ interests = defaultInterests, onChange }) {
         </p>
       </div>
 
-      {/* Bottom Section: Exactly Two Columns of Selected Tags */}
+      {/* Bottom Section: Two Columns of Selected Tags */}
       <div className="grid grid-cols-2 gap-2">
         {selected.map((value) => {
           const interest = interests.find((item) => item.value === value);
