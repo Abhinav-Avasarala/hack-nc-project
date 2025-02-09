@@ -7,6 +7,7 @@ const openai = new OpenAI({
     apiKey: process.env.KEY,
 });
 
+
 export const getResponse = async (userInput) => {
     try {
         const response = await openai.chat.completions.create({
@@ -22,7 +23,8 @@ export const getResponse = async (userInput) => {
         });
 
         const parsedResponse = response.choices[0].message.content;
-        console.log(parsedResponse);
+        const arrayOfTags = parsedResponse.split(",");
+        return arrayOfTags;
         // try {
         //     // Attempt to parse as JSON directly
         //     return JSON.parse(parsedResponse);
