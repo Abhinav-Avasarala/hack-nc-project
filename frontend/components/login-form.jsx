@@ -35,17 +35,15 @@ export function LoginForm({
           </div>
           <Input id="password" type="password" required />
         </div>
-        <Button type="submit" className="w-full">
+        <Button onClick={() => router.push('/dashboard')} type="submit" className="w-full">
           Login
         </Button>
       </div>
       <div className="text-center text-sm">
         Don&apos;t have an account?{" "}
-        <div onClick={() => router.push('/signup')}>
-          <a className="underline underline-offset-4">
+          <a onClick={() => router.push('/signup')} className="underline underline-offset-4">
             Sign up
           </a>
-        </div>
 
       </div>
     </form>)
