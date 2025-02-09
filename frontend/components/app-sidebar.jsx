@@ -4,13 +4,15 @@ import {
   AudioWaveform,
   BookOpen,
   Bot,
+  Building,
+  Calendar,
   Command,
-  Frame,
   GalleryVerticalEnd,
-  Map,
-  PieChart,
+  Home,
+  Settings,
   Settings2,
   SquareTerminal,
+  Users
 } from "lucide-react"
 
 import { NavProjects } from "@/components/nav-projects"
@@ -139,27 +141,28 @@ const data = {
     {
       name: "Dashboard",
       url: "dashboard",
-      icon: Frame,
+      icon: Home,
     },
     {
       name: "Social",
       url: "social",
-      icon: PieChart,
+      icon: Users,
     },
+    
     {
       name: "Events",
       url: "events",
-      icon: Map,
+      icon: Calendar,
     },
     {
       name: "Organizations",
       url: "organizations",
-      icon: Map,
+      icon: Building,
     },
     {
       name: "Settings",
       url: "settings",
-      icon: Map,
+      icon: Settings,
     },
   ],
 }
