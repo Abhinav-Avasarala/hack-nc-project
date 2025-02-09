@@ -74,6 +74,31 @@ export const getBySearch = async(req, res) => {
 
 }
 
+export const getByUser = async (req, res) => {
+  const { userId } = req.body; // Assuming userId is provided as a URL parameter
+
+  try {
+      const result = await dbClient.query(
+          `SELECT DISTINCT o.* 
+          FROM Opportunities o
+          JOIN Opportunity_Tags ot ON o.Id = ot.Opportunity_id
+          JOIN User_Interests ui ON ot.Interest_id = ui.Interest_id
+          WHERE ui.User_id = $1`,
+          [userId] // Use the provided userId
+      );
+
+      if (result.rows.length === 0) {
+          return res.status(404).json({ message: 'No opportunities found for this user.' });
+      } else {
+          res.json(result.rows);
+      }
+  } catch (error) {
+      console.error('Error fetching opportunities:', error);
+      res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
 // export const registerUser = async(req, res) => {
 //     const {username, name, email, password, major} = req.body;
 
@@ -82,14 +107,4 @@ export const getBySearch = async(req, res) => {
 //         [username, name, email, password, major]
 //     );
 
-// }
-
-// export const registerOrganization = async(req, res) => {
-//     const {name, website, email, type, password, description} = req.body;
-
-//     const newOrg = await db.one(
-//         'INSERT INTO organization (name, website, email, type, password, description) VALUES ($1, $2, $3, $4, $5, $6 RETURNING *',
-//         [name, website, email, type, password, description]
-//     );
-
-// }
+}
