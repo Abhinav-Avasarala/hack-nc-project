@@ -1,4 +1,6 @@
 'use client';
+
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from 'axios';
 import { Button } from "@/components/ui/button"
@@ -20,7 +22,13 @@ import {
     TabsTrigger,
 } from "@/components/ui/tabs"
 
+
+
+
 const signup = () => {
+
+    const router = useRouter();
+    
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -36,7 +44,7 @@ const signup = () => {
             { name, username, email, password, major, career_goal }
           );
           
-          if(response.status == 200) {
+          if(response.status == 201) {
             router.push("/dashboard");
           } else {
             console.log("Error on api request for signup: " + response.status);
@@ -68,11 +76,11 @@ const signup = () => {
                 </div>
                 <div className="space-y-1">
                     <Label htmlFor="username">Username</Label>
-                    <Input id="username" defaultValue="" onChange = {(e) => setUsername(e.target.value)} />
+                    <Input id="username"  defaultValue="" onChange = {(e) => setUsername(e.target.value)} />
                 </div>
                 <div className="space-y-1">
                     <Label htmlFor="username">Password</Label>
-                    <Input id="username" defaultValue="" onChange = {(e) => setPassword(e.target.value)}/>
+                    <Input id="username" type = "password" defaultValue="" onChange = {(e) => setPassword(e.target.value)}/>
                 </div>
                 <div className="space-y-1">
                     <Label htmlFor="username">Email</Label>
