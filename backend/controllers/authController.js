@@ -64,7 +64,7 @@ export const login = async (req, res) => {
 
 
 export const register = async (req, res) => {
-  const { name, username, email, password } = req.body;
+  const { name, username, email, password, major,  career_goal} = req.body;
 
   // Validate input
   if (!username || !name || !email || !password) {
@@ -77,8 +77,8 @@ export const register = async (req, res) => {
 
     // Insert user into the database
     await dbClient.query(
-      'INSERT INTO Users (Username, Name, Email, Pw_hash) VALUES ($1, $2, $3, $4)',
-      [username, name, email, hashedPassword]
+      'INSERT INTO Users (Username, Name, Email, Pw_hash, major, career_goal) VALUES ($1, $2, $3, $4, $5, $6)',
+      [username, name, email, hashedPassword, major, career_goal]
     );
 
     res.status(201).json({ message: 'User registered successfully.' });

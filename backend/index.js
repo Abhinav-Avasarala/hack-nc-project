@@ -1,6 +1,7 @@
 import express from 'express';
 import authRoutes from './routes/authRoutes.js';
 import opportunityRoutes from './routes/opportunitiesRoutes.js';
+import insertRoutes from './routes/insertRoutes.js';
 
 import cors from 'cors';            // if not installed, do `npm i cors`
 import session from 'express-session';
@@ -57,6 +58,7 @@ app.use(
 // Routes
 app.use('/api', authRoutes);
 app.use('/api', opportunityRoutes);
+app.use('/api', insertRoutes);
 
 app.listen(3000, () => {
     console.log("Server running on port 3000")
