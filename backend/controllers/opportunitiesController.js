@@ -58,16 +58,16 @@ export const getByOrganizationName = async(req, res) => {
     }
 }
 
-export const searchOpportunities = async(req, res) => {
-    const {searchTerm} = req.query;
+export const getBySearch = async(req, res) => {
+    const {searchTerm} = req.body;
 
     const result = await dbClient.query(
-        'SELECT * FROM opportunities WHERE description ILIKE $1',
-        ['%${searchTerm}%']
+      'SELECT * FROM opportunities WHERE description ILIKE $1',
+      ['%' + searchTerm + '%'] // string concatenation
     );
 
     if (result.rows.length === 0) {
-        return res.status(404).json({ message: 'No opportunities found for this location.' });
+        return res.status(404).json({ message: 'No opportunities found for this search.' });
     } else {
         res.json(result.rows);
     }

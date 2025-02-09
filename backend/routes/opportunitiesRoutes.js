@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getByLocation, getFromDate, getByOrganizationName } from '../controllers/opportunitiesController.js';
+import { getByLocation, getFromDate, getByOrganizationName, getBySearch } from '../controllers/opportunitiesController.js';
 // import { getByLocation, getByOrganizationName} from '../controllers/opportunitiesController.js';
 
 const router = Router();
@@ -8,6 +8,7 @@ const router = Router();
 router.get('/getByLocation', getByLocation);
 router.get('/getFromDate', getFromDate);
 router.get('/getByOrg', getByOrganizationName);
+router.get('/getBySearch', getBySearch);
 
 
 export default router;
