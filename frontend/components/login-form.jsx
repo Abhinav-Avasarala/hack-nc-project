@@ -19,24 +19,26 @@ export function LoginForm({
   const router = useRouter();
 
 
-  const [username, setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        'http://localhost:3000/api/login',
-        { username, password },
-        { withCredentials: true } 
-      );
+    // e.preventDefault();
+    // try {
+    //   const response = await axios.post(
+    //     'http://localhost:3000/api/login',
+    //     { email, password },
+    //     { withCredentials: true } 
+    //   );
       
-      if(response.status == 200) {
-        router.push("/dashboard");
-      }
-    } catch (err){
-      console.log("Error:" + err);
-    }
+    //   if(response.status == 200) {
+    //     router.push("/dashboard");
+    //   }
+    // } catch (err){
+    //   console.log("Error:" + err);
+    // }
+    router.push("/dashboard");
+
     
   }
 

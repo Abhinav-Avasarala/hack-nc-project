@@ -32,7 +32,7 @@ const dbPool = new Pool({
 
 
 app.use(cors({
-    origin: 'http://localhost:5173',  // or wherever React is running
+    origin: 'http://localhost:3001',  // or wherever React is running
     credentials: true                 // allow sending cookies
   }));
 
