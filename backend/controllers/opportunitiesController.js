@@ -74,12 +74,22 @@ export const getBySearch = async(req, res) => {
 
 }
 
-export const registerUser = async(req, res) => {
-    const {username, name, email, password, major} = req.body;
+// export const registerUser = async(req, res) => {
+//     const {username, name, email, password, major} = req.body;
 
-    const newUser = await db.one(
-        'INSERT INTO users (username, name, email, password, major) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-        [username, name, email, password, major]
-    );
+//     const newUser = await db.one(
+//         'INSERT INTO users (username, name, email, password, major) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+//         [username, name, email, password, major]
+//     );
 
-}
+// }
+
+// export const registerOrganization = async(req, res) => {
+//     const {name, website, email, type, password, description} = req.body;
+
+//     const newOrg = await db.one(
+//         'INSERT INTO organization (name, website, email, type, password, description) VALUES ($1, $2, $3, $4, $5, $6 RETURNING *',
+//         [name, website, email, type, password, description]
+//     );
+
+// }
