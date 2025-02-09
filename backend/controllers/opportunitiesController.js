@@ -107,4 +107,4 @@ export const getByUser = async (req, res) => {
 //         [username, name, email, password, major]
 //     );
 
-}
+// }
