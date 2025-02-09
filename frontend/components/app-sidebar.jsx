@@ -35,17 +35,17 @@ const data = {
   },
   teams: [
     {
-      name: "Acme Inc",
+      name: "Opportunify Inc",
       logo: GalleryVerticalEnd,
       plan: "Enterprise",
     },
     {
-      name: "Acme Corp.",
+      name: "Opportunify Corp.",
       logo: AudioWaveform,
       plan: "Startup",
     },
     {
-      name: "Evil Corp.",
+      name: "Opportunify Corp.",
       logo: Command,
       plan: "Free",
     },
