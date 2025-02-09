@@ -8,8 +8,24 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Map } from "lucide-react";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar";
+
+// Import multiple icons from lucide-react
+import {
+  Map,
+  User,
+  Briefcase,
+  Star,
+  Heart,
+  Coffee,
+  Airplay,
+  Settings,
+  Bell,
+} from "lucide-react";
 
 const projects = [
   {
@@ -19,7 +35,7 @@ const projects = [
     start_date: "AJ",
     end_date: "todo",
     deadline: "Attending a tech career fair",
-    icon: Map,
+    icon: User,
     avatarUrl: "https://randomuser.me/api/portraits/women/1.jpg",
   },
   {
@@ -29,7 +45,7 @@ const projects = [
     start_date: "BS",
     end_date: "todo",
     deadline: "Presenting at a research symposium",
-    icon: Map,
+    icon: Briefcase,
     avatarUrl: "https://randomuser.me/api/portraits/men/2.jpg",
   },
   {
@@ -39,7 +55,7 @@ const projects = [
     start_date: "CW",
     end_date: "todo",
     deadline: "Participating in a coding hackathon",
-    icon: Map,
+    icon: Star,
     avatarUrl: "https://randomuser.me/api/portraits/men/3.jpg",
   },
   {
@@ -49,7 +65,7 @@ const projects = [
     start_date: "DB",
     end_date: "todo",
     deadline: "Networking at an alumni meetup",
-    icon: Map,
+    icon: Heart,
     avatarUrl: "https://randomuser.me/api/portraits/men/4.jpg",
   },
   {
@@ -59,7 +75,7 @@ const projects = [
     start_date: "ED",
     end_date: "todo",
     deadline: "Attending a leadership workshop",
-    icon: Map,
+    icon: Coffee,
     avatarUrl: "https://randomuser.me/api/portraits/women/5.jpg",
   },
   {
@@ -69,7 +85,7 @@ const projects = [
     start_date: "FM",
     end_date: "todo",
     deadline: "Speaking at a business seminar",
-    icon: Map,
+    icon: Airplay,
     avatarUrl: "https://randomuser.me/api/portraits/men/6.jpg",
   },
   {
@@ -79,7 +95,7 @@ const projects = [
     start_date: "GW",
     end_date: "todo",
     deadline: "Joining a panel on AI ethics",
-    icon: Map,
+    icon: Settings,
     avatarUrl: "https://randomuser.me/api/portraits/women/7.jpg",
   },
   {
@@ -89,7 +105,7 @@ const projects = [
     start_date: "HM",
     end_date: "todo",
     deadline: "Competing in a case competition",
-    icon: Map,
+    icon: Bell,
     avatarUrl: "https://randomuser.me/api/portraits/men/8.jpg",
   },
   {
@@ -134,7 +150,6 @@ export default function Social() {
 
           {/* Main Content */}
           <main className="p-4">
-            <Separator className="my-4" />
             {/* Friends Grid Section */}
             <section>
               <h2 className="text-xl font-bold mb-4">All Friends</h2>
@@ -174,7 +189,7 @@ export default function Social() {
               </div>
             </section>
 
-            <Separator className="my-4" />
+            <Separator className="my-8" />
 
             {/* Recent Activity Section */}
             <section>
@@ -186,7 +201,7 @@ export default function Social() {
               </div>
             </section>
 
-            <Separator className="my-4" />
+            <Separator className="my-8" />
 
             {/* Suggested Groups Section */}
             <section>
@@ -196,8 +211,7 @@ export default function Social() {
                 <div className="bg-gray-50 p-4 rounded-xl shadow">
                   <h3 className="font-semibold text-gray-900">AI Enthusiasts</h3>
                   <p className="text-sm text-gray-600 mt-1">
-                    A group for those interested in artificial intelligence,
-                    machine learning, and data science.
+                    A group for those interested in artificial intelligence, machine learning, and data science.
                   </p>
                   <button className="mt-3 px-3 py-2 text-sm bg-black text-white rounded hover:bg-gray-900 transition">
                     Join Group
@@ -235,4 +249,3 @@ export default function Social() {
     </SidebarProvider>
   );
 }
-

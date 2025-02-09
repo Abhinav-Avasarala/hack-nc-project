@@ -1,5 +1,6 @@
-"use client"
-import React, { useMemo, useState } from "react"
+"use client";
+
+import React, { useMemo, useState } from "react";
 import {
   format,
   startOfMonth,
@@ -8,9 +9,9 @@ import {
   isSameDay,
   addMonths,
   subMonths,
-} from "date-fns"
+} from "date-fns";
 
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -18,13 +19,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 // Example event data
 const events = [
@@ -60,7 +61,6 @@ const events = [
     description:
       "Hear from a leading researcher about emerging AI technologies and potential impacts on society...",
   },
-  // NEW: Additional events in MARCH (2025, 2)
   {
     title: "Design Sprint Workshop",
     subtitle: "A hands-on workshop for rapid prototyping",
@@ -77,16 +77,16 @@ const events = [
     description:
       "Connect with potential employers, learn about internship and job opportunities, and expand your network.",
   },
-]
+];
 
 /** Returns an array of events that occur on a given day */
 function getEventsForDay(day) {
-  return events.filter((evt) => isSameDay(evt.date, day))
+  return events.filter((evt) => isSameDay(evt.date, day));
 }
 
 /** A new component for each event card with an expand/collapse behavior */
 const EventCard = ({ event }) => {
-  const [expanded, setExpanded] = useState(false)
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <div
@@ -106,7 +106,6 @@ const EventCard = ({ event }) => {
           <p className="mt-2 text-sm font-medium text-blue-600">
             {event.attendees}
           </p>
-          {/* Additional information only visible when expanded */}
           <p className="mt-2 text-sm text-gray-700">
             Additional Info: Please RSVP in advance. Refreshments will be provided,
             and more details will be sent via email prior to the event.
@@ -118,34 +117,34 @@ const EventCard = ({ event }) => {
         </p>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default function Page() {
   // Use state to track the current "view" month in the calendar
-  const [currentMonth, setCurrentMonth] = useState(new Date(2025, 1)) // Start at Feb 2025
+  const [currentMonth, setCurrentMonth] = useState(new Date(2025, 1)); // Start at Feb 2025
 
   // Navigate to the next/previous month
   const handlePrevMonth = () => {
-    setCurrentMonth((prev) => subMonths(prev, 1))
-  }
+    setCurrentMonth((prev) => subMonths(prev, 1));
+  };
   const handleNextMonth = () => {
-    setCurrentMonth((prev) => addMonths(prev, 1))
-  }
+    setCurrentMonth((prev) => addMonths(prev, 1));
+  };
 
   // Get the start/end of the chosen month
-  const start = startOfMonth(currentMonth)
-  const end = endOfMonth(currentMonth)
+  const start = startOfMonth(currentMonth);
+  const end = endOfMonth(currentMonth);
 
   // Generate each day in the current month
-  const days = useMemo(() => eachDayOfInterval({ start, end }), [start, end])
+  const days = useMemo(() => eachDayOfInterval({ start, end }), [start, end]);
 
   return (
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        {/* Wrapping the header and main content in a centered container */}
-        <div className="max-w-7xl mx-auto w-full">
+        {/* Centered container with extra top margin */}
+        <div className="max-w-7xl mx-auto w-full mt-8">
           {/* HEADER + BREADCRUMBS */}
           <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
             <div className="flex items-center gap-2 px-4">
@@ -171,7 +170,7 @@ export default function Page() {
           <div className="flex flex-1 flex-col gap-4 p-4">
             {/* UPCOMING EVENTS SECTION */}
             <section className="mb-6">
-              <h2 className="text-xl font-semibold mb-4">Upcoming Events</h2>
+              <h2 className="text-xl font-semibold mb-6">Upcoming Events</h2>
               <div className="grid auto-rows-fr gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {events.map((evt, idx) => (
                   <EventCard key={idx} event={evt} />
@@ -222,9 +221,9 @@ export default function Page() {
                 {/* Actual days */}
                 <div className="grid grid-cols-7">
                   {days.map((day, i) => {
-                    const dayNum = format(day, "d")
-                    const dayEvents = getEventsForDay(day)
-                    const hasEvent = dayEvents.length > 0
+                    const dayNum = format(day, "d");
+                    const dayEvents = getEventsForDay(day);
+                    const hasEvent = dayEvents.length > 0;
 
                     return (
                       <div
@@ -254,7 +253,7 @@ export default function Page() {
                           </div>
                         )}
                       </div>
-                    )
+                    );
                   })}
                 </div>
               </div>
@@ -262,7 +261,7 @@ export default function Page() {
           </div>
         </div>
         {/* End centered container */}
-      </SidebarInset>d
+      </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }
