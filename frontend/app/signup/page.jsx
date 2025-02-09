@@ -45,6 +45,20 @@ const signup = () => {
           );
           
           if(response.status == 201) {
+
+            const listy = await axios.get('http://localhost:3000/api/getResponse', {
+                params: { userInput: career_goal }
+            });
+
+            console.log(listy.data.tags);
+
+            // for (const item of listy.data.tags) {
+            //     await axios.post('http://localhost:3000/api/linkUserWithInterest', {
+            //       user_name: username,
+            //       interest_name: item
+            //     });
+            //   }
+
             router.push("/dashboard");
           } else {
             console.log("Error on api request for signup: " + response.status);
