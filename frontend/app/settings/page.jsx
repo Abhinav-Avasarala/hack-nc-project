@@ -30,7 +30,6 @@ export default function SettingsPage() {
             <Separator orientation="vertical" className="mr-2 h-4" />
             <Breadcrumb>
               <BreadcrumbList>
-                {/* Removed the Opportunify logo */}
                 <BreadcrumbItem>
                   <BreadcrumbPage>Settings</BreadcrumbPage>
                 </BreadcrumbItem>
@@ -41,12 +40,11 @@ export default function SettingsPage() {
 
         {/* Content */}
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <h1 className="mt-4 text-2xl font-semibold text-black">
-            Settings
-          </h1>
+          <h1 className="mt-4 text-2xl font-semibold text-black">Settings</h1>
 
-          {/* Interest Selector */}
-          <div className="space-y-1">
+          {/* Interest Selector Section */}
+          <div className="rounded-xl bg-muted/50 p-6">
+            <h2 className="mb-4 text-xl font-semibold">Interests</h2>
             <InterestSelector />
           </div>
 
@@ -75,9 +73,7 @@ export default function SettingsPage() {
               </div>
               <Separator className="my-4" />
               <div className="flex items-center justify-between py-2">
-                <span className="text-base">
-                  Share data with third-party services
-                </span>
+                <span className="text-base">Share data with third-party services</span>
                 <Switch /* Toggle for data sharing */ />
               </div>
             </div>
