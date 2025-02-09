@@ -9,4 +9,5 @@ router.get('/getByLocation', getByLocation);
 router.get('/getFromDate', getFromDate);
 router.get('/getByOrg', getByOrganizationName);
 
+
 export default router;

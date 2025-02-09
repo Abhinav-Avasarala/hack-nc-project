@@ -57,3 +57,29 @@ export const getByOrganizationName = async(req, res) => {
         res.json(result.rows);
     }
 }
+
+export const searchOpportunities = async(req, res) => {
+    const {searchTerm} = req.query;
+
+    const result = await dbClient.query(
+        'SELECT * FROM opportunities WHERE description ILIKE $1',
+        ['%${searchTerm}%']
+    );
+
+    if (result.rows.length === 0) {
+        return res.status(404).json({ message: 'No opportunities found for this location.' });
+    } else {
+        res.json(result.rows);
+    }
+
+}
+
+export const registerUser = async(req, res) => {
+    const {username, name, email, password, major} = req.body;
+
+    const newUser = await db.one(
+        'INSERT INTO users (username, name, email, password, major) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+        [username, name, email, password, major]
+    );
+
+}
