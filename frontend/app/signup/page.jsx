@@ -1,5 +1,6 @@
 
 import { Button } from "@/components/ui/button"
+import { InterestSelector } from "@/components/ui/InterestSelector";
 import {
     Card,
     CardContent,
@@ -58,6 +59,10 @@ const signup = () => {
                     <Input id="username" defaultValue="" />
                 </div>
 
+                <div className="space-y-1">
+                    <InterestSelector />
+                </div>
+
 
                 </CardContent>
                 <CardFooter>
@@ -76,11 +81,11 @@ const signup = () => {
                 <CardContent className="space-y-2">
                 <div className="space-y-1">
                     <Label htmlFor="current">Organization Name</Label>
-                    <Input id="current" type="password" />
+                    <Input id="username" defaultValue="" />
                 </div>
                 <div className="space-y-1">
                     <Label htmlFor="new">Email</Label>
-                    <Input id="new" type="password" />
+                    <Input id="username" defaultValue="" />
                 </div>
 
                 <div className="space-y-1">
@@ -91,17 +96,17 @@ const signup = () => {
                 
                 <div className="space-y-1">
                     <Label htmlFor="new">Website</Label>
-                    <Input id="new" type="password" />
+                    <Input id="username" defaultValue="" />
                 </div>
 
                 <div className="space-y-1">
                     <Label htmlFor="new">Type</Label>
-                    <Input id="new" type="password" />
+                    <Input id="username" defaultValue="" />
                 </div>
 
                 <div className="space-y-1">
                     <Label htmlFor="new">Description</Label>
-                    <Input id="new" type="password" />
+                    <Input id="username" defaultValue="" />
                 </div>
                 </CardContent>
                 <CardFooter>
