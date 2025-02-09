@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getByLocation, getByOrganizationName, getAllOrgs, getBySearch, getByUser, getAllEvents } from '../controllers/opportunitiesController.js';
+import { getByLocation, getOrgBySearch, getByOrganizationName, getAllOrgs, getBySearch, getByUser, getAllEvents, getOrgById } from '../controllers/opportunitiesController.js';
 import { get } from 'http';
 // import { getByLocation, getByOrganizationName} from '../controllers/opportunitiesController.js';
 
@@ -13,6 +13,8 @@ router.get('/getBySearch', getBySearch);
 router.get('/getByUser', getByUser);
 router.get('/getAllEvents', getAllEvents);
 router.get('/getAllOrgs', getAllOrgs);
+router.get('/getOrgById', getOrgById);
+router.get('/getOrgBySearch', getOrgBySearch);
 
 
 

@@ -1,6 +1,7 @@
 import dbClient from '../middleware/dbConfig.js';
 
 export const getAllOrgs = async (req, res) => {
+    
     try {
         const result = await dbClient.query(
             'SELECT * FROM organizations'
@@ -8,6 +9,7 @@ export const getAllOrgs = async (req, res) => {
         if (result.rows.length === 0) {
             return res.status(404).json({ message: 'No organizations found.' });
         } else {
+            
             res.json(result.rows);
         }
 
@@ -108,6 +110,22 @@ export const getBySearch = async(req, res) => {
     }
 
 }
+export const getOrgBySearch = async(req, res) => {
+    const {searchTerm} = req.query;
+    console.log(searchTerm);
+    const result = await dbClient.query(
+      'SELECT * FROM organizations WHERE name ILIKE $1',
+      ['%' + searchTerm + '%'] // string concatenation
+    );
+
+    if (result.rows.length === 0) {
+        return res.status(404).json({ message: 'No organizations found for this search.' });
+    } else {
+        res.json(result.rows);
+    }
+
+}
+
 
 export const getByUser = async (req, res) => {
   const { userId } = req.body; // Assuming userId is provided as a URL parameter
@@ -132,6 +150,27 @@ export const getByUser = async (req, res) => {
       res.status(500).json({ message: 'Server error' });
   }
 };
+
+
+export const getOrgById = async (req, res) => {
+    const { org_id } = req.query; // Ensure the frontend sends `org_id` in the query parameters
+  
+    try {
+      const result = await dbClient.query(
+        'SELECT * FROM organizations WHERE id = $1', // Use parameterized queries
+        [org_id]
+      );
+  
+      if (result.rows.length === 0) {
+        return res.status(404).json({ message: 'Organization not found.' });
+      } else {
+        res.json(result.rows[0]);
+      }
+    } catch (err) {
+      console.error('Database query error:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  };
 
 
 // export const registerUser = async(req, res) => {

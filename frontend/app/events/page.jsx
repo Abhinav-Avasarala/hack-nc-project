@@ -206,6 +206,7 @@ function ProjectCard({ project }) {
         src={project.image_url}
         alt="Project placeholder"
         className="w-full h-48 object-cover"
+        style={{ width: "150px", height: "150px" , marginLeft: "auto", marginRight: "auto", marginTop: "25px" }}
       />
 
       {/* Project Info */}

@@ -166,15 +166,14 @@ export default function Organizations() {
   const [query, setSearchQuery] = useState(""); 
   // Function to fetch data (default or search case)
   const fetchOpportunities = async (query) => {
-    console.log("ran feth");
     if(query == "") {
       const response = await axios.get("http://localhost:3000/api/getAllOrgs");
       setOpportunities(response.data); 
       console.log("initial response: ", response.data);
     } else {
       try{
-          const response = await axios.get("http://localhost:3000/api/getByOrg", {
-            params: { org: query },
+          const response = await axios.get("http://localhost:3000/api/getOrgBySearch", {
+            params: { searchTerm: query },
           });
           setOpportunities(response.data);
        
