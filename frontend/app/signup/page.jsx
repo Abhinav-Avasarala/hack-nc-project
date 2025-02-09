@@ -1,4 +1,6 @@
-
+'use client';
+import { useState } from "react";
+import axios from 'axios';
 import { Button } from "@/components/ui/button"
 import { InterestSelector } from "@/components/ui/InterestSelector";
 import {
@@ -19,6 +21,31 @@ import {
 } from "@/components/ui/tabs"
 
 const signup = () => {
+    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [major, setMajor] = useState('');
+    const [career_goal, setCareerGoal] = useState('');
+
+    const handleSignUpUser = async (e) => {
+        e.preventDefault();
+        try {
+          const response = await axios.post(
+            'http://localhost:3000/api/register',
+            { name, username, email, password, major, career_goal }
+          );
+          
+          if(response.status == 200) {
+            router.push("/dashboard");
+          } else {
+            console.log("Error on api request for signup: " + response.status);
+          }
+        } catch (err){
+          console.log("Error on signup:" + err);
+        }
+        
+      }
     return ( 
         <div className="flex flex-col items-center justify-center min-h-screen py-10 overflow-y-auto">
             <Tabs defaultValue="account" className="w-[400px]">
@@ -37,26 +64,29 @@ const signup = () => {
                 <CardContent className="space-y-2">
                 <div className="space-y-1">
                     <Label htmlFor="name">Name</Label>
-                    <Input id="name" defaultValue="" />
+                    <Input id="name" defaultValue="" onChange = {(e) => setName(e.target.value)}/>
                 </div>
                 <div className="space-y-1">
                     <Label htmlFor="username">Username</Label>
-                    <Input id="username" defaultValue="" />
+                    <Input id="username" defaultValue="" onChange = {(e) => setUsername(e.target.value)} />
                 </div>
-
+                <div className="space-y-1">
+                    <Label htmlFor="username">Password</Label>
+                    <Input id="username" defaultValue="" onChange = {(e) => setPassword(e.target.value)}/>
+                </div>
                 <div className="space-y-1">
                     <Label htmlFor="username">Email</Label>
-                    <Input id="username" defaultValue="" />
+                    <Input id="username" defaultValue="" onChange = {(e) => setEmail(e.target.value)}/>
                 </div>
 
                 <div className="space-y-1">
                     <Label htmlFor="username">Major</Label>
-                    <Input id="username" defaultValue="" />
+                    <Input id="username" defaultValue="" onChange = {(e) => setMajor(e.target.value)}/>
                 </div>
 
                 <div className="space-y-1">
                     <Label htmlFor="username">Career Goal</Label>
-                    <Input id="username" defaultValue="" />
+                    <Input id="username" defaultValue="" onChange = {(e) => setCareerGoal(e.target.value)}/>
                 </div>
 
                 <div className="space-y-1">
@@ -66,7 +96,9 @@ const signup = () => {
 
                 </CardContent>
                 <CardFooter>
-                <Button>Save changes</Button>
+                <Button onClick={ handleSignUpUser }> 
+                    Save changes
+                </Button>
                 </CardFooter>
             </Card>
             </TabsContent>
